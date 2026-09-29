@@ -1,0 +1,168 @@
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calendar</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background-color: lightblue;
+            text-align: center;
+        }
+
+        .calendar {
+            width: 400px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            color: darkblue;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: darkblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background-color: darkblue;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            border: 1px solid gray;
+            padding: 12px;
+            height: 25px;
+        }
+
+        td:hover {
+            background-color: lightblue;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="calendar">
+
+        <h1 id="month"></h1>
+
+        <button onclick="previousMonth()">
+            Previous
+        </button>
+
+        <button onclick="nextMonth()">
+            Next
+        </button>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="calendarBody"></tbody>
+
+        </table>
+
+    </div>
+
+    <script>
+
+        let date = new Date();
+
+        function displayCalendar() {
+
+            let year = date.getFullYear();
+
+            let month = date.getMonth();
+
+            let monthNames = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+            ];
+
+            document.getElementById("month").innerHTML =
+                monthNames[month] + " " + year;
+
+            let firstDay =
+                new Date(year, month, 1).getDay();
+
+            let lastDate =
+                new Date(year, month + 1, 0).getDate();
+
+            let calendarBody =
+                document.getElementById("calendarBody");
+
+            calendarBody.innerHTML = "";
+
+            let row = document.createElement("tr");
+
+            // Empty cells before the first day
+            for (let i = 0; i < firstDay; i++) {
+
+                let cell = document.createElement("td");
+
+                row.appendChild(cell);
+            }
+
+            // Add days
+            for (let day = 1; day <= lastDate; day++) {
+
+                if (row.children.length === 7) {
+
+                    calendarBody.appendChild(row);
+
+                    row = document.createElement("tr");
+                }
+
+                let cell = document.createElement("td");
+
+                cell.innerHTML = day;
+
+                row.appendChild(cell);
+            }
+
+            // Empty cells after the last day
+            while (row.children.length < 7) {
+```
